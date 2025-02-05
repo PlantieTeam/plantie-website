@@ -8,6 +8,8 @@ const Router: FC = () => {
       <Routes>
         <Route element={<MainLayout />}>
           <Route index element={<HomePage />}></Route>
+          <Route path="/app" element={<HomePage />}></Route>
+          
         </Route>
       </Routes>
     </BrowserRouter>

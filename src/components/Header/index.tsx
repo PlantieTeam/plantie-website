@@ -22,7 +22,8 @@ const Header: FC = () => {
     setHumburgerMenuOpen((prev) => !prev);
   };
   const linkStyle =
-    " text-center flex items-center px-0 justify-center text-center h-full w-full text-white hover:text-white hover:bg-white/25 py-1 px-2 rounded-sm box-content";
+    " text-center flex items-center px-0 justify-center text-center h-full w-full text-white hover:text-white rounded hover:bg-white/25 py-1 px-2  box-content";
+    const linkActivatedStyle = "text-white bg-white/25 "
   return (
     <>
       <header
@@ -33,23 +34,23 @@ const Header: FC = () => {
         }`}
       >
         {isScrolled && (
-          <div className="backdrop-blur-xl backdrop-brightness-150   bg-white/10  left-0 top-0 box-content rounded-md  absolute w-full   h-full"></div>
+          <div className="backdrop-blur-xl backdrop-brightness-150   bg-black/25  left-0 top-0 box-content rounded-md  absolute w-full   h-full"></div>
         )}
         <div className="flex items-center gap-2 ">
           {!isScrolled && <img src={logo} alt="" className="w-12" />}
-          <span className={`z-10  ${isScrolled ? "text-2xl" : "text-4xl"}`}>
+          <span className={`z-10  ${isScrolled ? "text-2xl " : "text-4xl"}`}>
             Plantie
           </span>
         </div>
 
         <nav
-          className={`md:justify-center justify-evenly items-center  md:flex hidden h-4/5 md:gap-0 ${
-            isScrolled ? "bg-[#1a1a1a]/90 w-3/5 overflow-hidden" : "w-2/6"
-          } text-sm rounded-lg   z-10`}
+          className={`md:justify-center justify-evenly items-center  md:flex hidden ${
+            isScrolled ? "bg-[#1a1a1a]/25 w-3/5 overflow-hidden h-4/5  " : "w-2/6 h-3/5 md:gap-5"
+          } text-sm rounded   z-10`}
         >
           <Link
             className={` ${
-              location.pathname === "/app" ? "bg-white text-black" : ""
+              location.pathname === "/app" ? linkActivatedStyle: ""
             } ${linkStyle}`}
             to={"/app"}
           >
@@ -57,7 +58,7 @@ const Header: FC = () => {
           </Link>
           <Link
             className={` ${
-              location.pathname === "/library" ? "bg-white text-black" : ""
+              location.pathname === "/library" ? linkActivatedStyle : ""
             } ${linkStyle}`}
             to={"/library"}
           >
@@ -65,7 +66,7 @@ const Header: FC = () => {
           </Link>
           <Link
             className={` ${
-              location.pathname === "/news" ? "bg-white text-black" : ""
+              location.pathname === "/news" ? linkActivatedStyle : ""
             } ${linkStyle}`}
             to={"/news"}
           >
@@ -73,7 +74,7 @@ const Header: FC = () => {
           </Link>
           <Link
             className={` ${
-              location.pathname === "/app-usage" ? "bg-white text-black" : ""
+              location.pathname === "/app-usage" ? linkActivatedStyle : ""
             } ${linkStyle}`}
             to={"/app-usage"}
           >

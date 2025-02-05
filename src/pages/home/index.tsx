@@ -3,6 +3,7 @@ import coverShape from "../../assets/cover-shape.svg";
 import iphoneCover from "../../assets/iphone-cover.png";
 import download from "../../assets/download.png";
 import { Link } from "react-router-dom";
+import AnimatedScreens from "../../components/AnimatedScreens";
 
 const HomePage: FC = () => {
   const divRef = useRef<HTMLImageElement>(null);
@@ -71,6 +72,10 @@ const HomePage: FC = () => {
           className="absolute opacity-0 transition-all duration-700  bottom-0 right-0 z-[0]"
           alt=""
         />
+      </div>
+
+      <div className="w-full relative">
+          <AnimatedScreens />
       </div>
     </div>
   );
