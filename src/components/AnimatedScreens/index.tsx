@@ -41,7 +41,7 @@ const AnimatedScreens = () => {
 
             if (screen3Ref.current) {
               screen3Ref.current.classList.remove(
-                "translate-y-[-100%]",
+                "translate-y-[100%]",
                 "opacity-0"
               );
               screen3Ref.current.classList.add(
@@ -75,7 +75,7 @@ const AnimatedScreens = () => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full md:h-[43em] h-[30em] flex items-center justify-center overflow-hidden"
+      className="relative w-full md:h-[43em]  flex items-center justify-center overflow-hidden"
     >
       {/* Screen 1 */}
       <div

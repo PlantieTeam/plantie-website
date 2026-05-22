@@ -1,151 +1,178 @@
 import { FC, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.svg";
+
 const Header: FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [humburgerMenuOpen, setHumburgerMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const location = useLocation();
-  console.log(location.pathname);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50); // Adjust the scroll threshold as needed
+      setIsScrolled(window.scrollY > 40);
     };
 
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  const openHandler = () => {
-    setHumburgerMenuOpen((prev) => !prev);
-  };
-  const linkStyle =
-    " text-center flex items-center px-0 justify-center text-center h-full w-full text-white hover:text-white rounded hover:bg-white/25 py-1 px-2  box-content";
-    const linkActivatedStyle = "text-white bg-white/25 "
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
+
+  const navLinks = [
+    { label: "App", path: "/app" },
+    { label: "Library", path: "/library" },
+    { label: "News", path: "/news" },
+    { label: "App Usage", path: "/app-usage" },
+    { label: "Assistant", path: "/assistant" },
+  ];
+
+  const navItemStyle =
+    "relative flex items-center justify-center rounded-full px-5 py-2 text-sm font-medium transition-all duration-300";
+
   return (
     <>
+      {/* HEADER */}
       <header
-        className={`fixed  flex justify-between items-center h-14  left-1/2 transform -translate-x-1/2 border-white/20 z-30  transition-all duration-300 m-auto   ${
-          isScrolled
-            ? "2xl:w-2/6 w-11/12 px-4  rounded-md  border-opacity-25  top-5 h-14   "
-            : "2xl:w-4/5 w-11/12  top-2 border-opacity-0 "
-        }`}
+        className={`fixed left-1/2 top-4 z-50 w-[95%] max-w-7xl -translate-x-1/2 transition-all duration-500`}
       >
-        {isScrolled && (
-          <div className="backdrop-blur-xl backdrop-brightness-150   bg-black/25  left-0 top-0 box-content rounded-md  absolute w-full   h-full"></div>
-        )}
-        <div className="flex items-center gap-2 ">
-          {!isScrolled && <img src={logo} alt="" className="w-12" />}
-          <span className={`z-10  ${isScrolled ? "text-2xl " : "text-4xl"}`}>
-            Plantie
-          </span>
-        </div>
-
-        <nav
-          className={`md:justify-center justify-evenly items-center  md:flex hidden ${
-            isScrolled ? "bg-[#1a1a1a]/25 w-3/5 overflow-hidden h-4/5  " : "w-2/6 h-3/5 md:gap-5"
-          } text-sm rounded   z-10`}
-        >
-          <Link
-            className={` ${
-              location.pathname === "/app" ? linkActivatedStyle: ""
-            } ${linkStyle}`}
-            to={"/app"}
-          >
-            App
-          </Link>
-          <Link
-            className={` ${
-              location.pathname === "/library" ? linkActivatedStyle : ""
-            } ${linkStyle}`}
-            to={"/library"}
-          >
-            Library
-          </Link>
-          <Link
-            className={` ${
-              location.pathname === "/news" ? linkActivatedStyle : ""
-            } ${linkStyle}`}
-            to={"/news"}
-          >
-            News
-          </Link>
-          <Link
-            className={` ${
-              location.pathname === "/app-usage" ? linkActivatedStyle : ""
-            } ${linkStyle}`}
-            to={"/app-usage"}
-          >
-            App Usage
-          </Link>
-        </nav>
-
-        {/* mobile nav */}
         <div
-          className="w-10 h-10 p-0 flex items-center justify-evenly flex-col z-10 bg-white outline-none rounded-lg md:hidden relative "
-          onClick={openHandler}
+          className={`relative flex items-center justify-between rounded-2xl border border-white/10 px-4 py-3 transition-all duration-500 sm:px-6 ${
+            isScrolled
+              ? "bg-black/25 shadow-2xl backdrop-blur-2xl"
+              : "bg-white/5 backdrop-blur-md"
+          }`}
         >
-          <div
-            className={`w-4/6 absolute top-[25%] bg-black h-[2px] rounded-full transition-all duration-700 ${
-              humburgerMenuOpen ? " rotate-45 top-[50%]" : ""
-            }`}
-          ></div>
-          <div
-            className={`w-4/6 absolute top-[50%] bg-black h-[2px] rounded-full transition-all duration-700 ${
-              humburgerMenuOpen ? " -rotate-45 top-[50%]" : ""
-            }`}
-          ></div>
-          <div
-            className={`w-4/6 absolute top-[75%] bg-black h-[2px] rounded-full transition-all duration-700 ${
-              humburgerMenuOpen ? " -rotate-45 !top-[50%]" : ""
-            }`}
-          ></div>
+          {/* Glow */}
+          <div className="absolute inset-0 rounded-2xl bg-white/[0.02]" />
+
+          {/* LOGO */}
+          <Link
+            to="/"
+            className="relative z-10 flex items-center gap-3"
+          >
+            <img
+              src={logo}
+              alt="Plantie"
+              className={`transition-all duration-500 ${
+                isScrolled ? "w-9" : "w-11"
+              }`}
+            />
+
+            <span
+              className={`font-bold tracking-tight text-white transition-all duration-500 ${
+                isScrolled
+                  ? "text-2xl"
+                  : "text-3xl sm:text-4xl"
+              }`}
+            >
+              Plantie
+            </span>
+          </Link>
+
+          {/* DESKTOP NAV */}
+          <nav className="relative z-10 hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] p-1 backdrop-blur-xl md:flex">
+            {navLinks.map((link) => {
+              const active = location.pathname === link.path;
+
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`${navItemStyle} ${
+                    active
+                      ? "bg-white text-[#23075B] shadow-lg"
+                      : "text-white/80 hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* MOBILE BUTTON */}
+          <button
+            onClick={() => setMobileOpen((prev) => !prev)}
+            className="relative z-10 flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/10 backdrop-blur-xl transition-all duration-300 hover:bg-white/20 md:hidden"
+          >
+            <div className="relative flex h-5 w-5 items-center justify-center">
+              
+              <span
+                className={`absolute h-[2px] w-5 rounded-full bg-white transition-all duration-300 ${
+                  mobileOpen
+                    ? "rotate-45"
+                    : "-translate-y-[6px]"
+                }`}
+              />
+
+              <span
+                className={`absolute h-[2px] w-5 rounded-full bg-white transition-all duration-300 ${
+                  mobileOpen
+                    ? "opacity-0"
+                    : "opacity-100"
+                }`}
+              />
+
+              <span
+                className={`absolute h-[2px] w-5 rounded-full bg-white transition-all duration-300 ${
+                  mobileOpen
+                    ? "-rotate-45"
+                    : "translate-y-[6px]"
+                }`}
+              />
+            </div>
+          </button>
         </div>
       </header>
+
+      {/* MOBILE MENU */}
       <div
-        className={`fixed w-full z-20 ${
-          humburgerMenuOpen ? "flex" : " hidden"
+        className={`fixed inset-0 z-40 transition-all duration-500 md:hidden ${
+          mobileOpen
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
         }`}
       >
-        <div className="bg-white/10 backdrop-blur-xl  absolute w-[110%] h-[100vh] left-0 top-0 p-0 m-0"></div>
-        <nav className="absolute top-20  left-1/2 transform -translate-x-1/2 w-11/12 p-4   bg-black/90  rounded-2xl ">
-          <Link
-            className={` ${
-              location.pathname === "/app" ? "bg-white text-black" : ""
-            } ${linkStyle}`}
-            to={"/app"}
-          >
-            App
-          </Link>
-          <Link
-            className={` ${
-              location.pathname === "/library" ? "bg-white text-black" : ""
-            } ${linkStyle}`}
-            to={"/library"}
-          >
-            Library
-          </Link>
-          <Link
-            className={` ${
-              location.pathname === "/news" ? "bg-white text-black" : ""
-            } ${linkStyle}`}
-            to={"/news"}
-          >
-            News
-          </Link>
-          <Link
-            className={` ${
-              location.pathname === "/app-usage" ? "bg-white text-black" : ""
-            } ${linkStyle}`}
-            to={"/app-usage"}
-          >
-            App Usage
-          </Link>
-        </nav>
+        {/* BACKDROP */}
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-xl" />
+
+        {/* MENU */}
+        <div
+          className={`absolute left-1/2 top-24 w-[90%] max-w-sm -translate-x-1/2 rounded-3xl border border-white/10 bg-[#12082e]/95 p-5 shadow-2xl backdrop-blur-2xl transition-all duration-500 ${
+            mobileOpen
+              ? "translate-y-0 opacity-100"
+              : "-translate-y-10 opacity-0"
+          }`}
+        >
+          <nav className="flex flex-col gap-2">
+            {navLinks.map((link) => {
+              const active = location.pathname === link.path;
+
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`rounded-2xl px-5 py-4 text-center text-base font-medium transition-all duration-300 ${
+                    active
+                      ? "bg-white text-[#23075B]"
+                      : "text-white/80 hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
       </div>
     </>
   );
 };
+
 export default Header;
