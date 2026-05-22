@@ -29,7 +29,7 @@ const variants = {
       ease: "easeOut",
     },
   },
-};
+} as const;
 
 const SectionReveal = ({
   children,
