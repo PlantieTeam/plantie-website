@@ -27,7 +27,7 @@ a:hover {
 }
 body {
   position: relative;
-  height: 800rem;
+  /* height: 800rem; */
   overflow-x: hidden;
   width: 100%;
 }
