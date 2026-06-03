@@ -26,11 +26,11 @@ const Header: FC = () => {
   }, [location.pathname]);
 
   const navLinks = [
-    { label: "App", path: "/app" },
+    { label: "App", path: "/app",disabled:false },
     { label: "Library", path: "/library", disabled:true },
     { label: "News", path: "/news" ,disabled:true },
     { label: "App Usage", path: "/app-usage" ,disabled:true },
-    { label: "Assistant", path: "/assistant" },
+    { label: "Assistant", path: "/assistant",disabled:false  },
   ];
 
   const navItemStyle =
