@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.svg";
+import { div, span } from "framer-motion/client";
 
 const Header: FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,9 +27,9 @@ const Header: FC = () => {
 
   const navLinks = [
     { label: "App", path: "/app" },
-    { label: "Library", path: "/library" },
-    { label: "News", path: "/news" },
-    { label: "App Usage", path: "/app-usage" },
+    { label: "Library", path: "/library", disabled:true },
+    { label: "News", path: "/news" ,disabled:true },
+    { label: "App Usage", path: "/app-usage" ,disabled:true },
     { label: "Assistant", path: "/assistant" },
   ];
 
@@ -81,9 +82,11 @@ const Header: FC = () => {
               const active = location.pathname === link.path;
 
               return (
+                !link.disabled ?
                 <Link
                   key={link.path}
                   to={link.path}
+                  
                   className={`${navItemStyle} ${
                     active
                       ? "bg-white text-[#23075B] shadow-lg"
@@ -92,6 +95,10 @@ const Header: FC = () => {
                 >
                   {link.label}
                 </Link>
+                :
+                <span className={`${navItemStyle} cursor-not-allowed text-white/80  hover:text-white`}>
+                  {link.label}
+                </span>
               );
             })}
           </nav>
