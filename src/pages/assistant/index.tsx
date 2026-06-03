@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
 
 import { uid } from "../../utils/uid";
@@ -19,15 +19,15 @@ export default function AssistantPage() {
   const [query, setQuery] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState("Plantie is thinking");
+  const [status] = useState("Plantie is thinking");
 
   const sessionId = useRef<string | null>(null);
 
-  const getSession = async () => {
+  const getSession = async (): Promise<string> => {
     if (!sessionId.current) {
       sessionId.current = await createChatSession(USER_ID);
     }
-    return sessionId.current;
+    return sessionId.current!;
   };
 
   const buildHistory = useCallback(() => {

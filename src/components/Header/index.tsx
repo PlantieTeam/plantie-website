@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.svg";
-import { div, span } from "framer-motion/client";
 
 const Header: FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
