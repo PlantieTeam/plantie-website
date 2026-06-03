@@ -13,7 +13,7 @@ import EmptyState from "../../components/EmptyState";
 
 import { createChatSession, streamChat } from "../../services/chatApi";
 
-const USER_ID = "320f3bc1-91a1-4d3d-9522-7a82514077f6";
+const USER_ID = "328f7d70-a383-4ccf-bf9e-e5973964e2e2";
 
 export default function AssistantPage() {
   const [query, setQuery] = useState("");

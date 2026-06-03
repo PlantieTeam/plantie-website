@@ -5,7 +5,7 @@ export async function createChatSession(userId: string) {
   const res = await fetch(`${BASE_URL}/api/v1/chat/session`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ user_id: userId }),
+    body: JSON.stringify({ user_id: userId , is_temporal:true}),
   });
 
   if (!res.ok) throw new Error("Failed to create session");
