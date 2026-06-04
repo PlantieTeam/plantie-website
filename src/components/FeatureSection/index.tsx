@@ -7,6 +7,7 @@ interface Props {
   description: string;
   buttonText: string;
   image: string;
+  imageBehind?: string;
   reverse?: boolean;
 }
 
@@ -14,13 +15,14 @@ const FeatureSection = ({
   title,
   description,
   buttonText,
+  imageBehind,
   image,
   reverse = false,
 }: Props) => {
   return (
     <section className="relative py-16 sm:py-24 lg:py-32">
       <div
-        className={`mx-auto flex max-w-7xl flex-col items-center gap-14 rounded-[2.5rem] border border-gray-100 bg-gradient-to-b from-white to-[#f8f8f8] px-6 py-10 shadow-[0_20px_80px_rgba(0,0,0,0.05)] sm:px-10 lg:flex-row lg:px-16 lg:py-16 ${
+        className={`mx-auto flex max-w-7xl flex-col z-20 items-center gap-14 rounded-[2.5rem] border border-gray-100 bg-gradient-to-b from-white to-[#f8f8f8] px-6 py-10 shadow-[0_20px_80px_rgba(0,0,0,0.05)] sm:px-10 lg:flex-row lg:px-16 lg:py-16 ${
           reverse ? "lg:flex-row-reverse" : ""
         }`}
       >
@@ -29,12 +31,12 @@ const FeatureSection = ({
           <motion.div
             whileHover={{ y: -10 }}
             transition={{ duration: 0.3 }}
-            className="relative flex w-full flex-1 justify-center"
+            className="relative flex w-full flex-1 justify-center z-10"
           >
             {/* Glow */}
-            <div className="absolute h-60 w-60 rounded-full  sm:h-80 sm:w-80" />
+            <div className="absolute h-60 w-60 rounded-full sm:h-80 sm:w-80" />
 
-            {/* Floating Card */}
+            {/* Floating Card Container */}
             <motion.div
               animate={{
                 y: [0, -10, 0],
@@ -44,12 +46,22 @@ const FeatureSection = ({
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="relative rounded-[2rem] p-4 "
+              className="relative rounded-[2rem] p-4 flex items-center justify-center"
             >
+              {/* BEHIND IMAGE */}
+              {imageBehind && (
+                <img
+                  src={imageBehind}
+                  className="absolute z-0 bottom-0 right-[20%]  -translate-x-1/2 -translate-y-1/2 max-w-[100%] pointer-events-none"
+                  alt=""
+                />
+              )}
+
+              {/* FRONT IMAGE */}
               <img
                 src={image}
                 alt=""
-                className="w-full max-w-[240px] sm:max-w-[340px] lg:max-w-[420px]"
+                className="relative z-10 w-full max-w-[240px] sm:max-w-[340px] lg:max-w-[420px]"
               />
             </motion.div>
           </motion.div>
@@ -57,7 +69,8 @@ const FeatureSection = ({
 
         {/* TEXT */}
         <SectionReveal from={reverse ? "right" : "left"}>
-          <div className="flex flex-1 flex-col items-center gap-6 text-center lg:items-start lg:text-left">
+          {/* Added relative and z-20 to ensure it sits on top of everything else */}
+          <div className="relative z-20 flex flex-1 flex-col items-center gap-6 text-center lg:items-start lg:text-left">
             {/* TAG */}
             <div className="rounded-full bg-[#47B88A]/10 px-4 py-2 text-sm font-semibold text-[#47B88A]">
               Plantie Feature

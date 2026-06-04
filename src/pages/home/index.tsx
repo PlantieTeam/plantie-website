@@ -16,6 +16,8 @@ import map_screen from "../../assets/screnn1.png";
 
 import dot from "../../assets/dots.svg";
 import potted from "../../assets/3d-fluency-potted-plant 1.png";
+import tree_planting from '../../assets/3d-fluency-tree-planting 1.png'
+import map from '../../assets/3d-casual-life-map 1.png'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 60 },
@@ -130,7 +132,12 @@ const HomePage: FC = () => {
 
         <img
           src={potted}
-          className="absolute right-[-80px] top-[2200px] w-[220px] opacity-80"
+          className="absolute right-[-20px] top-[1800px] w-[220px] opacity-80"
+          alt=""
+        />
+        <img
+          src={tree_planting}
+          className="absolute left-[-20px] top-[1600px] w-[220px] opacity-80"
           alt=""
         />
       </div>
@@ -138,7 +145,18 @@ const HomePage: FC = () => {
       {/* CONTENT */}
       <div className="relative z-10">
         <AnimatedScreens />
+        <div className="h-40 text-[#2F2F2F] w-2/3 m-auto text-center">
+          <h2 className="text-2xl mt-20">
+            Plantie assists farmers in diagnosing and treating crop issues,
+            boosting production, and providing agricultural advice. With
+            Plantie, you can achieve your farming goals and improve your
+            agricultural experience.
+          </h2>
+        </div>
 
+        <h1 className="text-[#2f2f2f] text-center mt-20 w-2/3 m-auto text-6xl">
+          Increase your agricultural productivity.
+        </h1>
         <FeatureSection
           title="Diagnose Your Infected Plant"
           description="Keep your crops healthy with Plantie AI Diagnose System. Instantly identify diseases and get smart treatment recommendations."
@@ -159,6 +177,7 @@ const HomePage: FC = () => {
           description="Quickly locate nearby plant stores and get the products you need for treatment and healthy plant growth."
           buttonText="Find Stores"
           image={map_screen}
+          imageBehind={map}
           reverse
         />
       </div>
