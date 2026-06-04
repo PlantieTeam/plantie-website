@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from "react";
+import {  useState, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
 
 import { uid } from "../../utils/uid";
@@ -11,9 +11,7 @@ import AssistantBubble from "../../components/AssistantBubble";
 import TypingIndicator from "../../components/TypingIndicator";
 import EmptyState from "../../components/EmptyState";
 
-import { createChatSession, streamChat } from "../../services/chatApi";
-
-const USER_ID = "328f7d70-a383-4ccf-bf9e-e5973964e2e2";
+import { streamChat } from "../../services/chatApi";
 
 export default function AssistantPage() {
   const [query, setQuery] = useState("");
@@ -21,14 +19,6 @@ export default function AssistantPage() {
   const [loading, setLoading] = useState(false);
   const [status] = useState("Plantie is thinking");
 
-  const sessionId = useRef<string | null>(null);
-
-  const getSession = async (): Promise<string> => {
-    if (!sessionId.current) {
-      sessionId.current = await createChatSession(USER_ID);
-    }
-    return sessionId.current!;
-  };
 
   const buildHistory = useCallback(() => {
     return messages
@@ -46,7 +36,6 @@ export default function AssistantPage() {
     setQuery("");
     setLoading(true);
 
-    const session = await getSession();
 
     const userMsg: Message = {
       id: uid(),
@@ -71,8 +60,6 @@ export default function AssistantPage() {
     try {
       const res = await streamChat({
         query: trimmed,
-        sessionId: session,
-        userId: USER_ID,
         history: buildHistory(),
       });
 
